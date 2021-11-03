@@ -88,7 +88,7 @@ function draw() {
     ground.velocityX = -4;
 
     //scoring
-    score = score + Math.round(frameCount / 60);
+    score = score + Math.round(frameRate() / 60);
 
     if (score > 0 && score % 100 === 0) {
       checkPointSound.play();
@@ -114,8 +114,8 @@ function draw() {
     spawnObstacles();
 
     if (obstaclesGroup.isTouching(trex)) {
-      trex.velocityY = -12;
-      jumpSound.play();
+      gameState = END
+      dieSound.play()
     }
   } else if (gameState === END) {
     gameOver.visible = true;
@@ -144,7 +144,7 @@ function draw() {
 function spawnObstacles() {
   if (frameCount % 60 === 0) {
     var obstacle = createSprite(400, 165, 10, 40);
-    obstacle.velocityX = -(6 + score / 100);
+    obstacle.velocityX = -4;
 
     //generate random obstacles
     var rand = Math.round(random(1, 6));
